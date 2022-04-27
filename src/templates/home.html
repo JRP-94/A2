@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div>
+    <h1>{{user.username}}</h1>
+    
+    {% for sub in user.subs %}
+    
+    <span> Title: {{sub.title}} </span>
+    <span> Year: {{sub.year}} </span>
+    <span> Artist: {{sub.artist}} </span>
+    <span> {{sub.img}} </span>
+    <form action="/unsub" method="POST">
+    <input type="hidden" value="{{sub.id}}"
+    <input type="submit">Remove</input> 
+    </form>
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}
