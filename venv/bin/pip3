@@ -1,4 +1,4 @@
-#!/home/jake/Desktop/dev/A2/venv/bin/python3
+#!/home/jake/Desktop/dev/A2/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

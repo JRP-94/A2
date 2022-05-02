@@ -2,19 +2,28 @@
 {% block content %}
 <div>
     <h1>{{user.username}}</h1>
-    
+    <h2>Subscriptions</h2>
     {% for sub in user.subs %}
     
     <span> Title: {{sub.title}} </span>
     <span> Year: {{sub.year}} </span>
     <span> Artist: {{sub.artist}} </span>
-    <span> {{sub.img}} </span>
+    <img src="{{sub.img}}"/>
     <form action="/unsub" method="POST">
-    <input type="hidden" value="{{sub.id}}"
-    <input type="submit">Remove</input> 
+    <input type="hidden" name="email" value="{{user.email}}"/>
+    <input type="hidden" name="title" value="{{sub.title}}"/>
+    <input type="submit" value="Remove"></input> 
     </form>
+    <br/>
+    
     {% endfor %}
-
+    <h2>Search</h2>
+    <form action="/search" method="POST">
+        <label>Title: <input type="text" name="title"/></label>
+        <label>Artist: <input type="text" name="artist"/></label>
+        <label>Year: <input type="text" name="year"/></label>
+        <input type="submit" value="Search"/>
+    </form>
 
 </div>
 

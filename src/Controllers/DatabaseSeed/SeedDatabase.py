@@ -14,21 +14,13 @@ def SeedDatabase(tableName):
                 {
                     'AttributeName': 'title',
                     'AttributeType': 'S'
-                },
-                {
-                    'AttributeName': 'artist',
-                    'AttributeType': 'S'
                 }
             ],
             KeySchema = [
                 {
                     'AttributeName': 'title',
                     'KeyType': 'HASH'
-                },
-                {
-                    'AttributeName': 'artist',
-                    'KeyType': 'RANGE'
-                },
+                }
             ],
             ProvisionedThroughput = {
             'ReadCapacityUnits': 1,
@@ -49,7 +41,7 @@ def SeedDatabase(tableName):
                 sleep(1)
         
         if active:
-            file = open('a2.json')
+            file = open('/home/jake/Desktop/dev/A2/src/Controllers/DatabaseSeed/a2.json')
             data = json.load(file)
         
             table = boto3.resource('dynamodb').Table(tableName)
@@ -62,8 +54,8 @@ def SeedDatabase(tableName):
                     TableName = tableName,
                     Item = object
                 )
-                request = requests.get(object['img_url'], stream=True)
-                s3.upload_fileobj(request.raw, object['title'])
+                # request = requests.get(object['img_url'], stream=True)
+                # s3.upload_fileobj(request.raw, object['title'])
             
             file.close()
         

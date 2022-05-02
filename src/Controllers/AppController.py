@@ -23,6 +23,13 @@ class AppController:
     def GetUser(self, email):
         return self.modelController.GetUser(email)
     
+    def Unsub(self, email, title):
+        self.modelController.RemoveSub(email, title)
+        self.db.RemoveSub(email, title)
+        
+    def SearchMusic(self, title):
+        self.db.SearchMusic(title)
+    
     def Register(self, _email, password, _username) -> str:
         error = "None"
         for login in self.modelController.Logins:

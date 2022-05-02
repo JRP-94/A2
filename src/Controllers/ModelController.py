@@ -5,6 +5,7 @@ from typing import List
 from urllib import response
 from Models.user import User
 from Models.login import Login
+from Models.song import Song
 
 class ModelController:
     
@@ -23,6 +24,25 @@ class ModelController:
             print(login['username']['S'])
     
     def GetUser(self, email):
-        response = self.db.GetUser(email)
-        user = User(response['email'], response['username'], response['subs'])
+        subsName = self.db.GetSubs(email)
+        
+        subs = list()
+        for song in subsName:
+            temp = self.db.GetSong(song)
+            subs.append(Song(temp['title'], temp['artist'], self.db.GetImage(temp['img_url']), temp['web_url'], temp['year']))
+            
+        username = ""
+        for user in self.Logins:
+            if(user.email == email):
+                username = user.username
+            
+        user = User(email, username, subs)
+        self.users.append(user)
         return user
+    
+    def RemoveSub(self, email, title):
+        for user in self.users:
+            if user.email == email:
+                for song in user.subs:
+                    if song.title == title:
+                        user.subs.remove(song)

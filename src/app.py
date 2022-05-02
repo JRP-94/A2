@@ -1,4 +1,7 @@
 from ossaudiodev import SNDCTL_DSP_SPEED
+from unittest import result
+from urllib import response
+from cachelib import RedisCache
 from flask import Flask, jsonify, redirect, render_template, session, url_for, request
 from flask_session import Session
 
@@ -32,6 +35,16 @@ def Login():
 @app.route("/home", methods=['GET'])
 def home():
   return render_template('home.html', user = ac.GetUser(session['email']))
+
+@app.route("/unsub", methods=['POST'])
+def unsub():
+    result = ac.Unsub(request.form['email'], request.form['title'])
+    return redirect('/home')
+  
+@app.route("/search", methods=['POST'])
+def search():
+    ac.SearchMusic(request.form['title'])
+    return redirect('/home')
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
